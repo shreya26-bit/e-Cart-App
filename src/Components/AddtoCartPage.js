@@ -80,7 +80,7 @@ function AddtoCart() {
                               <i className="fas fa-trash"></i>
                             </button>
 
-                            <Link to={`/cart/${data.id}`}>
+                            {/* <Link to={`/cart/${data.id}`}>
                               <button
                                 type="button"
                                 className="btn btn-success btn-sm mb-2"
@@ -89,7 +89,7 @@ function AddtoCart() {
                               >
                                 Product Details
                               </button>
-                            </Link>
+                            </Link> */}
                             {/* <!-- Data --> */}
                           </div>
 
