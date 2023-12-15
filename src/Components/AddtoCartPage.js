@@ -169,12 +169,13 @@ function AddtoCart() {
                     </li>
                   </ul>
 
-                  <button
+                 <Link to="/"> <button
                     type="button"
                     className="btn btn-primary btn-lg btn-block"
                   >
                     back to Home page
                   </button>
+                  </Link>
                 </div>
               </div>
             </div>
