@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import Cardsdata from "../../Components/CardsData";
+// import Cardsdata from "../../Components/CardsData";
 
 const initialState = {
   cart: [],
-  items: Cardsdata,
+  items: [],
   totalQuantity: 0,
   totalPrice: 0,
 };
@@ -12,9 +12,13 @@ export const FoodSlice = createSlice({
   name: "all",
   initialState,
   reducers: {
+    SETITEMS:(state,action)=>{
+    state.items=action.payload;
+    },
     ADDTOCART: (state, action) => {
       let find = state.cart.findIndex(
         (items) => items.id === action.payload.id
+       
       );
       if (find >= 0) {
         state.cart[find].qnty = state.cart[find].qnty + 1;
@@ -22,6 +26,7 @@ export const FoodSlice = createSlice({
         state.cart.push(action.payload);
         console.log("ACTION PAYLOAD", action.payload);
       }
+      console.log("Find is",find); 
     },
     getCartTotal: (state) => {
       console.log("ddddddddds", state.cart);
@@ -61,18 +66,16 @@ export const FoodSlice = createSlice({
       }
       else if(state.cart[find].qnty<=1 || state.cart[find].qnty==0){
         state.cart=state.cart.filter((item)=>item.id!==action.payload)
+        state.items = state.items.filter((item) => item.id !== action.payload);
       }
     },
  
     REMOVEITEM:(state,action)=>{
-      state.cart=state.cart.filter((item)=>item.id!==action.payload)
-
-      // console.log("newitems",newItems);
-      // state.cart.push(newItems)
+      state.cart = state.cart.filter((item) => item.id !== action.payload);
+      state.items = state.items.filter((item) => item.id !== action.payload);
     },
   },
 });
 
-export const { ADDTOCART, getCartTotal, DRECEMENT,REMOVEITEM } = FoodSlice.actions;
+export const { ADDTOCART, getCartTotal, DRECEMENT,REMOVEITEM,SETITEMS } = FoodSlice.actions;
 export default FoodSlice.reducer;
-

@@ -5,17 +5,37 @@ import { DRECEMENT, REMOVEITEM, getCartTotal } from "../redux/Slice/cartSlice";
 import { ADDTOCART } from "../redux/Slice/cartSlice";
 
 function AddtoCart() {
+  // const { cart, items, totalQuantity, totalPrice } = useSelector(
+  //   (state) => state.all
+  // );
+
+
+  // const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(getCartTotal());
+  //   console.log("totalQuantity is", totalQuantity);
+  //   console.log("TotalPrice  is", totalPrice);
+  // }, [cart]);
   const { cart, items, totalQuantity, totalPrice } = useSelector(
     (state) => state.all
   );
 
+  console.log("Carts are",cart);
+  console.log("Items are",items);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getCartTotal());
-    console.log("totalQuantity is", totalQuantity);
-    console.log("TotalPrice  is", totalPrice);
   }, [cart]);
+
+  const handleDecrement = (id) => {
+    dispatch(DRECEMENT(id));
+  };
+
+  const handleIncrement = (data) => {
+    dispatch(ADDTOCART(data));
+  };
 
   console.log("carts conphouahscu", cart);
   return (
@@ -71,14 +91,14 @@ function AddtoCart() {
                               <strong>Dishes :</strong>
                               {data.address}
                             </p>
-                            <button
+                            {/* <button
                               type="button"
                               className="btn  btn-sm me-1 mb-2"
                               data-mdb-toggle="tooltip"
                               title="Remove item" onClick={()=>{dispatch(REMOVEITEM(data.id))}}
                             >
                               <i className="fas fa-trash"></i>
-                            </button>
+                            </button> */}
 
                             {/* <Link to={`/cart/${data.id}`}>
                               <button
@@ -99,12 +119,10 @@ function AddtoCart() {
                               className="d-flex mb-4"
                               style={{ maxwidth: "300px" }}
                             >
-                              <button
-                                className="btn btn-primary px-3 me-2"
-                                onClick={() => {
-                                  dispatch(DRECEMENT(data.id));
-                                }}
-                              >
+                                   <button
+                className="btn btn-primary px-3 me-2"
+                onClick={() => handleDecrement(data.id)}
+              >
                                 <i className="fas fa-minus"></i>
                               </button>
 
@@ -119,11 +137,9 @@ function AddtoCart() {
                               </div>
 
                               <button
-                                onClick={() => {
-                                  dispatch(ADDTOCART(data));
-                                }}
-                                className="btn btn-primary px-3 ms-2"
-                              >
+                onClick={() => handleIncrement(data)}
+                className="btn btn-primary px-3 ms-2"
+              >
                                 <i className="fas fa-plus"></i>
                               </button>
                             </div>
@@ -171,7 +187,7 @@ function AddtoCart() {
 
                  <Link to="/"> <button
                     type="button"
-                    className="btn btn-primary btn-lg btn-block"
+                    className="btn btn-primary bg-blue-500 btn-lg btn-block"
                   >
                     back to Home page
                   </button>

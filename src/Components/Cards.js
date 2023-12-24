@@ -1,20 +1,26 @@
 import React, { useState } from "react";
 import Cardsdata from "./CardsData";
 import { Link } from "react-router-dom";
-import { ADDTOCART } from "../redux/Slice/cartSlice";
+import { ADDTOCART, REMOVEITEM } from "../redux/Slice/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 function Cards() {
   const carts = useSelector((state) => state.all);
+  const products = useSelector((state) => state.all.items);
+  console.log("Product is",carts);
+  console.log("Product is", products);
 
   const dispatch = useDispatch();
 
   return (
     <>
       <div className="container">
+
         <h1 className="text-center">Add to Cart Projects</h1>
+     
+       
         <div className="d-flex row justify-content-center align-items-center cards-content">
-          {Cardsdata.map((data) => {
+          {products.map((data) => {
             const { id, rname, imgdata, price } = data;
             return (
               <>
@@ -41,6 +47,13 @@ function Cards() {
                       }}
                     >
                       Add to Cart
+                    </a>
+                    <a
+                      href="#"
+                      className="btn btn-danger d-flex justify-content-center mt-3"
+                      onClick={()=>{dispatch(REMOVEITEM(data.id))}}
+                    >
+                      Delete
                     </a>
                   </div>
                 </div>
